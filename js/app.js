@@ -19,8 +19,11 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    // my note: movement only from left to right, so only increase x:
+    //@description: movement from left to right x:
     this.x += this.speed;
+    if (this.x >= 510) {     //enemy is outside of visible area
+      this.x = -100;          //enemy enters visible area from the left again
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -64,19 +67,15 @@ class Player {
   handleInput(key) {
     switch(key) {
       case 'up':
-        console.log('up was pressed');
         this.update('up');
         break;
       case 'down':
-        console.log('down was pressed');
         this.update('down');
         break;
       case 'left':
-        console.log('left was pressed');
         this.update('left');
         break;
       case 'right':
-        console.log('right was pressed');
         this.update('right');
         break;
 
@@ -86,11 +85,16 @@ class Player {
 }
 
 // Now instantiate your objects.
+//note y values: lane 1 = 60, lane 2 = 140, lane 3 = 230
 let enemy1 = new Enemy(0, 60, 2);
-let enemy2 = new Enemy(100, 140, 1);
-let enemy3 = new Enemy(50, 230, 3);
+let enemy2 = new Enemy(200, 60, 2);
+let enemy3 = new Enemy(250, 60, 3);
+let enemy4 = new Enemy(100, 140, 2);
+let enemy5 = new Enemy(40, 140, 3);
+let enemy6 = new Enemy(50, 230, 2);
+let enemy7 = new Enemy(10, 230, 1);
 // Place all enemy objects in an array called allEnemies
-let allEnemies = [enemy1, enemy2, enemy3];
+let allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7];
 // Place the player object in a variable called player
 let player = new Player(200, 400);
 

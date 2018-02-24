@@ -24,7 +24,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
 
     //@description: movement from left to right:
-    this.x += this.speed;
+    this.x += this.speed *dt * 100;
     if (this.x >= 510) {     //enemy is outside of visible area
       this.x = -100;         //enemy enters visible area from the left again
     }
@@ -64,7 +64,6 @@ class Player {
           document.querySelector('.score').innerHTML = score;
           setTimeout (() => {
             this.y = 400;
-            console.log(this);
           }, 200);
         }
         break;

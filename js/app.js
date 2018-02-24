@@ -1,15 +1,16 @@
+// scoreboard for the number of runs to the water
 let score = 0;
 document.querySelector('.score').innerHTML = score;
 
-
 // Enemies our player must avoid
-var Enemy = function(x, y, speed) {
+var Enemy = function(x, y, speed, lane) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     this.x = x; //between 0 and 400
     this.y = y; //lane1: 60, lane2: 140, lane3: 230
     this.speed = speed;
+    this.lane = lane;
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -35,11 +36,16 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//@description: colission places placer back on square one
 Enemy.prototype.collision = function() {
-  if (this.x === playerPostionX) {
-    console.log("crash!");
-  }
-}
+  setInterval (() => {
+    if (this.x >= playerPostionXMin && this.x <= playerPostionXMax
+      && this.lane == currentLane) {
+        player.y = 400;
+        console.log('crahs!');
+      }
+  }, 100);
+};
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -57,10 +63,10 @@ class Player {
     switch(direction) {
       case 'up':
         this.y -= 85;
-        playerPostionY = this.y;
-        console.log(playerPostionY);
+        this.defineLane(this.y);
         if (this.y <= -25) {
           score += 1;
+          currentLane = 0;
           document.querySelector('.score').innerHTML = score;
           setTimeout (() => {
             this.y = 400;
@@ -69,8 +75,7 @@ class Player {
         break;
       case 'down':
         this.y += 85;
-        playerPostionY = this.y;
-        console.log(playerPostionY);
+        this.defineLane(this.y);
         if (this.y >= 400) {
           this.y = 400;
         }
@@ -78,6 +83,8 @@ class Player {
       case 'left':
         this.x -= 100;
         playerPostionX = this.x;
+        playerPostionXMin = playerPostionX - 80;
+        playerPostionXMax = playerPostionX + 80;
         console.log(playerPostionX);
         if (this.x <= 0) {
           this.x = 0;
@@ -86,6 +93,8 @@ class Player {
       case 'right':
         this.x += 100;
         playerPostionX = this.x;
+        playerPostionXMin = playerPostionX - 80;
+        playerPostionXMax = playerPostionX + 80;
         console.log(playerPostionX);
         if (this.x >= 400) {
           this.x = 400;
@@ -113,27 +122,58 @@ class Player {
         this.update('right');
         break;
     }
-
   };
+
+  defineLane(y) {
+    switch(y) {
+      case 400:
+        currentLane = 0;
+        break;
+      case 315:
+        currentLane = 0;
+        break;
+      case 230:
+        currentLane = 1;
+        break;
+      case 145:
+        currentLane = 2;
+        break;
+      case 60:
+        currentLane = 3;
+        break;
+    }
+  }
 }
 
 // Now instantiate your objects.
-//note y values: lane 1 = 60, lane 2 = 140, lane 3 = 230
-let enemy1 = new Enemy(0, 60, 5);
-let enemy2 = new Enemy(200, 60, 4);
-let enemy3 = new Enemy(250, 60, 3);
-let enemy4 = new Enemy(100, 140, 2);
-let enemy5 = new Enemy(40, 140, 3);
-let enemy6 = new Enemy(50, 230, 2);
-let enemy7 = new Enemy(10, 230, 1);
+//note y values: lane 3 = 60, lane 2 = 140, lane 1 = 230
+let enemy1 = new Enemy(0, 60, 5, 3);
+let enemy2 = new Enemy(200, 60, 1, 3);
+let enemy3 = new Enemy(250, 60, 3, 3);
+let enemy4 = new Enemy(100, 140, 2, 2);
+let enemy5 = new Enemy(40, 140, 3, 2);
+let enemy6 = new Enemy(50, 230, 2, 1);
+let enemy7 = new Enemy(10, 230, 1, 1);
+
 // Place all enemy objects in an array called allEnemies
 let allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7];
+
 // Place the player object in a variable called player
 let player = new Player(200, 400);
 
-let playerPostionY;
-let playerPostionX;
+let currentLane = 0;
+let playerPostionX = 200;
+let playerPostionXMin = 120;
+let playerPostionXMax = 280;
+
+//activate collision function for all enemies:
 enemy1.collision();
+enemy2.collision();
+enemy3.collision();
+enemy4.collision();
+enemy5.collision();
+enemy6.collision();
+enemy7.collision();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

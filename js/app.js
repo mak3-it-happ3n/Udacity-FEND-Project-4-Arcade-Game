@@ -16,6 +16,8 @@ Enemy.prototype.update = function(dt) {
     // all computers.
 };
 
+let allEnemies = [];
+
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -24,6 +26,37 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+
+// My own Player class in ES5:
+/*
+let player = function() {
+  this.sprite = 'images/char-boy.png';
+};
+
+player.update = function(dt) {
+};
+
+player.render = function() {
+};
+*/
+
+ // My own version in ES6:
+class Player {
+  constructor(){
+  };
+
+  update(dt) {
+  };
+
+  render() {
+  };
+
+  handleInput() {
+  };
+}
+
+let player = new Player;
+
 
 
 // Now instantiate your objects.

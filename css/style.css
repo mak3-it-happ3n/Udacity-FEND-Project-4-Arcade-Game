@@ -6,6 +6,11 @@ body {
   font-size: 3em;
 }
 
+.message {
+  font-size: 3em;
+  color: orange;
+  visibility: hidden;
+}
 
 .minus {
   color: black;

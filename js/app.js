@@ -149,6 +149,7 @@ class Player {
     score += 1;
     currentLane = 0;
     document.querySelector('.score').innerHTML = score;
+    document.querySelector('.message').style.visibility = 'visible';
     setTimeout (() => {
       this.y = 400;
     }, 200);
@@ -156,8 +157,9 @@ class Player {
     number.classList.add('plus');        //animate score
     setTimeout(function(){
       number.classList.remove('plus');   //remove class for next animation
+      document.querySelector('.message').style.visibility = 'hidden';
     }, 500);
-  };  
+  };
 }
 
 

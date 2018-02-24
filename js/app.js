@@ -1,3 +1,7 @@
+let score = 0;
+document.querySelector('.score').innerHTML = score;
+
+
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
@@ -19,10 +23,10 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    //@description: movement from left to right x:
+    //@description: movement from left to right:
     this.x += this.speed;
     if (this.x >= 510) {     //enemy is outside of visible area
-      this.x = -100;          //enemy enters visible area from the left again
+      this.x = -100;         //enemy enters visible area from the left again
     }
 };
 
@@ -30,6 +34,12 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+Enemy.prototype.collision = function() {
+  if (this.x === playerPostionX) {
+    console.log("crash!");
+  }
+}
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -47,15 +57,40 @@ class Player {
     switch(direction) {
       case 'up':
         this.y -= 85;
+        playerPostionY = this.y;
+        console.log(playerPostionY);
+        if (this.y <= -25) {
+          score += 1;
+          document.querySelector('.score').innerHTML = score;
+          setTimeout (() => {
+            this.y = 400;
+            console.log(this);
+          }, 200);
+        }
         break;
       case 'down':
         this.y += 85;
+        playerPostionY = this.y;
+        console.log(playerPostionY);
+        if (this.y >= 400) {
+          this.y = 400;
+        }
         break;
       case 'left':
         this.x -= 100;
+        playerPostionX = this.x;
+        console.log(playerPostionX);
+        if (this.x <= 0) {
+          this.x = 0;
+        }
         break;
       case 'right':
         this.x += 100;
+        playerPostionX = this.x;
+        console.log(playerPostionX);
+        if (this.x >= 400) {
+          this.x = 400;
+        }
         break;
     }
   };
@@ -78,9 +113,8 @@ class Player {
       case 'right':
         this.update('right');
         break;
-
     }
-    console.log(key);
+
   };
 }
 
@@ -98,6 +132,9 @@ let allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7];
 // Place the player object in a variable called player
 let player = new Player(200, 400);
 
+let playerPostionY;
+let playerPostionX;
+enemy1.collision();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

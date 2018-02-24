@@ -36,13 +36,20 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//@description: colission places placer back on square one
+//@description: colission with places
 Enemy.prototype.collision = function() {
   setInterval (() => {
     if (this.x >= playerPostionXMin && this.x <= playerPostionXMax
       && this.lane == currentLane) {
-        player.y = 400;
-        console.log('crahs!');
+        player.y = 400;       //places player on bottom row
+        currentLane = 0;
+        score -= 1;
+        document.querySelector('.score').innerHTML = score; //update score
+        let number = document.querySelector('.score');
+        number.classList.add('minus');        //animate score
+        setTimeout(function(){
+          number.classList.remove('minus');   //remove class for next animation
+        }, 500);
       }
   }, 100);
 };
@@ -65,13 +72,9 @@ class Player {
         this.y -= 85;
         this.defineLane(this.y);
         if (this.y <= -25) {
-          score += 1;
-          currentLane = 0;
-          document.querySelector('.score').innerHTML = score;
-          setTimeout (() => {
-            this.y = 400;
-          }, 200);
+          this.scorePoint();
         }
+
         break;
       case 'down':
         this.y += 85;
@@ -85,7 +88,6 @@ class Player {
         playerPostionX = this.x;
         playerPostionXMin = playerPostionX - 80;
         playerPostionXMax = playerPostionX + 80;
-        console.log(playerPostionX);
         if (this.x <= 0) {
           this.x = 0;
         }
@@ -95,7 +97,6 @@ class Player {
         playerPostionX = this.x;
         playerPostionXMin = playerPostionX - 80;
         playerPostionXMax = playerPostionX + 80;
-        console.log(playerPostionX);
         if (this.x >= 400) {
           this.x = 400;
         }
@@ -142,16 +143,32 @@ class Player {
         currentLane = 3;
         break;
     }
-  }
+  };
+
+  scorePoint() {
+    score += 1;
+    currentLane = 0;
+    document.querySelector('.score').innerHTML = score;
+    setTimeout (() => {
+      this.y = 400;
+    }, 200);
+    let number = document.querySelector('.score');
+    number.classList.add('plus');        //animate score
+    setTimeout(function(){
+      number.classList.remove('plus');   //remove class for next animation
+    }, 500);
+  };  
 }
+
+
 
 // Now instantiate your objects.
 //note y values: lane 3 = 60, lane 2 = 140, lane 1 = 230
-let enemy1 = new Enemy(0, 60, 5, 3);
+let enemy1 = new Enemy(0, 60, 1, 3);
 let enemy2 = new Enemy(200, 60, 1, 3);
-let enemy3 = new Enemy(250, 60, 3, 3);
-let enemy4 = new Enemy(100, 140, 2, 2);
-let enemy5 = new Enemy(40, 140, 3, 2);
+let enemy3 = new Enemy(250, 60, 2, 3);
+let enemy4 = new Enemy(100, 140, 4, 2);
+let enemy5 = new Enemy(40, 140, 1, 2);
 let enemy6 = new Enemy(50, 230, 2, 1);
 let enemy7 = new Enemy(10, 230, 1, 1);
 

@@ -1,3 +1,45 @@
 body {
     text-align: center;
 }
+
+.scoreboard {
+  font-size: 3em;
+}
+
+
+.minus {
+  color: black;
+  font-size: 1em;
+  animation-name: minus;
+  animation-duration: 2s;
+}
+
+.plus {
+  color: black;
+  animation-name: plus;
+  animation-duration: 2s;
+}
+
+
+@keyframes minus {
+    from {
+      color: red;
+      font-size: 1em;
+    }
+    to {
+      color: black;
+      font-size: 1.1em;
+    }
+  }
+
+
+@keyframes plus {
+  from {
+    color: green;
+    font-size: 1em;
+  }
+  to {
+    color: black;
+    font-size: 1.1em;
+  }
+}

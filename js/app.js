@@ -1,7 +1,10 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
+
+    this.x = x; //between 0 and 400
+    this.y = y; //between 50 and 250
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -14,9 +17,13 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x += 0;
+    this.y += 0;
 };
 
-let allEnemies = [];
+let enemy1 = new Enemy(0, 50);
+
+let allEnemies = [enemy1];
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -43,12 +50,16 @@ player.render = function() {
  // My own version in ES6:
 class Player {
   constructor(){
+    this.y;
+    this.x;
+    this.sprite = 'images/char-boy.png';
   };
 
   update(dt) {
   };
 
   render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   };
 
   handleInput() {

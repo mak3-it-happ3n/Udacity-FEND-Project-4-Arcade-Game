@@ -1,10 +1,11 @@
 // Enemies our player must avoid
-var Enemy = function(x, y) {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     this.x = x; //between 0 and 400
     this.y = y; //between 50 and 250
+    this.speed = speed;
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -17,11 +18,12 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += 0;
-    this.y += 0;
+
+    // movement only from left to right, so only increase x:
+    this.x += this.speed;
 };
 
-let enemy1 = new Enemy(0, 50);
+let enemy1 = new Enemy(0, 50, 2);
 
 let allEnemies = [enemy1];
 
@@ -49,9 +51,9 @@ player.render = function() {
 
  // My own version in ES6:
 class Player {
-  constructor(){
-    this.y;
-    this.x;
+  constructor(x, y){
+    this.x = x;
+    this.y = y;
     this.sprite = 'images/char-boy.png';
   };
 
@@ -66,7 +68,7 @@ class Player {
   };
 }
 
-let player = new Player;
+let player = new Player(200, 400);
 
 
 

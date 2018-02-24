@@ -86,8 +86,8 @@ class Player {
 
 // Now instantiate your objects.
 //note y values: lane 1 = 60, lane 2 = 140, lane 3 = 230
-let enemy1 = new Enemy(0, 60, 2);
-let enemy2 = new Enemy(200, 60, 2);
+let enemy1 = new Enemy(0, 60, 5);
+let enemy2 = new Enemy(200, 60, 4);
 let enemy3 = new Enemy(250, 60, 3);
 let enemy4 = new Enemy(100, 140, 2);
 let enemy5 = new Enemy(40, 140, 3);

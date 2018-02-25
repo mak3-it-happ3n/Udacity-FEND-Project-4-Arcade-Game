@@ -21,6 +21,3 @@ and the score is decreased by one.
 # Contribution, Licensing, Usage Information
 This project has been created purely for the purpose of the _Front-End Web
 Developer Nanodegree_ course at **UDACITY**.
-
-Optionally, you may want to include contribution, licensing, and usage information.
-Have a look at our course on the subject here: https://www.udacity.com/course/writing-readmes--ud777

@@ -40,14 +40,14 @@ Enemy.prototype.render = function() {
 Enemy.prototype.collision = function() {
   setInterval (() => {
     if (this.x >= playerPostionXMin && this.x <= playerPostionXMax
-      && this.lane == currentLane) {
+      && this.lane == currentLane) {  //if collision with player happens
         player.y = 400;             //places player back on square one
         player.x = 200;
         currentLane = 0;
         playerPostionX = 200;
         playerPostionXMin= 120;
         playerPostionXMax = 280;
-        score -= 1; 
+        score -= 1;               //decrease the score
         document.querySelector('.score').innerHTML = score; //update score
         let number = document.querySelector('.score');
         number.classList.add('minus');        //animate score
@@ -68,7 +68,7 @@ Enemy.prototype.collision = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
- // My own version in ES6:
+ //@description ES6 player class
 class Player {
   constructor(x, y){
     this.x = x;
@@ -158,7 +158,7 @@ class Player {
 
   //@description things to happen when player reaches the water
   scorePoint() {
-    score += 1;
+    score += 1;   //increase the score
     currentLane = 0;
     document.querySelector('.score').innerHTML = score; //update increased score
     document.querySelector('.message').style.visibility = 'visible'; //show message
@@ -175,7 +175,7 @@ class Player {
 }
 
 // Now instantiate your objects.
-//note y values: lane 3 = 60, lane 2 = 140, lane 1 = 230
+//note: y-values: lane 3 = 60, lane 2 = 140, lane 1 = 230
 let enemy1 = new Enemy(0, 60, 1, 3);
 let enemy2 = new Enemy(200, 60, 1, 3);
 let enemy3 = new Enemy(250, 60, 2, 3);

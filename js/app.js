@@ -47,8 +47,14 @@ Enemy.prototype.collision = function() {
         document.querySelector('.score').innerHTML = score; //update score
         let number = document.querySelector('.score');
         number.classList.add('minus');        //animate score
+        document.querySelector('.message').innerHTML = 'Ouch!'; // change message
+        document.querySelector('.message').style.color = 'red'; //change message color
+        document.querySelector('.message').style.visibility = 'visible'; //display message
         setTimeout(function(){
           number.classList.remove('minus');   //remove class for next animation
+          document.querySelector('.message').style.visibility = 'hidden'; //hide message
+          document.querySelector('.message').style.color = 'green'; //change message color
+          document.querySelector('.message').innerHTML = 'yeah!'; //change message text
         }, 500);
       }
   }, 100);
@@ -148,8 +154,8 @@ class Player {
   scorePoint() {
     score += 1;
     currentLane = 0;
-    document.querySelector('.score').innerHTML = score;
-    document.querySelector('.message').style.visibility = 'visible';
+    document.querySelector('.score').innerHTML = score; //update score
+    document.querySelector('.message').style.visibility = 'visible'; //show message
     setTimeout (() => {
       this.y = 400;
     }, 200);
@@ -157,7 +163,7 @@ class Player {
     number.classList.add('plus');        //animate score
     setTimeout(function(){
       number.classList.remove('plus');   //remove class for next animation
-      document.querySelector('.message').style.visibility = 'hidden';
+      document.querySelector('.message').style.visibility = 'hidden'; //hide message
     }, 500);
   };
 }

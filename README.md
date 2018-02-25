@@ -1,6 +1,26 @@
-frontend-nanodegree-arcade-game
-===============================
+#Installing the Game
+- Download or __clone__ this **git repository**
+- **Rightclick** on **index.html**
+- Select **open with**
+- Select your favorite browser (e.g. __Google Chrome__)
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+#Game Play
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+##Goal
+Get the player to the other side of the rode (onto the water) without touching
+any of the __bugs__
+
+##Score
+- Each successful run to the water increases the score by one
+- Each collision with a bug decreases the score by one
+
+##Collisions
+Whenever the player runs into a __bug__, the player starts back at __square one__
+and the score is decreased by one.
+
+##Contribution, Licensing, Usage Information
+This project has been created purely for the purpose of the __Front-End Web
+Developer Nanodegree__ course at **UDACITY**.
+
+Optionally, you may want to include contribution, licensing, and usage information.
+Have a look at our course on the subject here: https://www.udacity.com/course/writing-readmes--ud777

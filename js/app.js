@@ -36,14 +36,18 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//@description: colission with places
+//@description: colission with player
 Enemy.prototype.collision = function() {
   setInterval (() => {
     if (this.x >= playerPostionXMin && this.x <= playerPostionXMax
       && this.lane == currentLane) {
-        player.y = 400;       //places player on bottom row
+        player.y = 400;             //places player back on square one
+        player.x = 200;
         currentLane = 0;
-        score -= 1;
+        playerPostionX = 200;
+        playerPostionXMin= 120;
+        playerPostionXMax = 280;
+        score -= 1; 
         document.querySelector('.score').innerHTML = score; //update score
         let number = document.querySelector('.score');
         number.classList.add('minus');        //animate score
@@ -75,7 +79,7 @@ class Player {
   update(direction) {
     switch(direction) {
       case 'up':
-        this.y -= 85;
+        this.y -= 85;     //if player reaches the water
         this.defineLane(this.y);
         if (this.y <= -25) {
           this.scorePoint();
@@ -86,7 +90,7 @@ class Player {
         this.y += 85;
         this.defineLane(this.y);
         if (this.y >= 400) {
-          this.y = 400;
+          this.y = 400;       //limits area where player can go
         }
         break;
       case 'left':
@@ -95,7 +99,7 @@ class Player {
         playerPostionXMin = playerPostionX - 80;
         playerPostionXMax = playerPostionX + 80;
         if (this.x <= 0) {
-          this.x = 0;
+          this.x = 0;       //limits area where player can go
         }
         break;
       case 'right':
@@ -104,7 +108,7 @@ class Player {
         playerPostionXMin = playerPostionX - 80;
         playerPostionXMax = playerPostionX + 80;
         if (this.x >= 400) {
-          this.x = 400;
+          this.x = 400;       //limits area where player can go
         }
         break;
     }
@@ -131,6 +135,7 @@ class Player {
     }
   };
 
+  //@description define which lane player is on (to compare with enemies)
   defineLane(y) {
     switch(y) {
       case 400:
@@ -151,13 +156,14 @@ class Player {
     }
   };
 
+  //@description things to happen when player reaches the water
   scorePoint() {
     score += 1;
     currentLane = 0;
-    document.querySelector('.score').innerHTML = score; //update score
+    document.querySelector('.score').innerHTML = score; //update increased score
     document.querySelector('.message').style.visibility = 'visible'; //show message
     setTimeout (() => {
-      this.y = 400;
+      this.y = 400;     //set player back on bottom row
     }, 200);
     let number = document.querySelector('.score');
     number.classList.add('plus');        //animate score
@@ -167,8 +173,6 @@ class Player {
     }, 500);
   };
 }
-
-
 
 // Now instantiate your objects.
 //note y values: lane 3 = 60, lane 2 = 140, lane 1 = 230
@@ -186,9 +190,9 @@ let allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7];
 // Place the player object in a variable called player
 let player = new Player(200, 400);
 
-let currentLane = 0;
+let currentLane = 0;          // plyer's current lane
 let playerPostionX = 200;
-let playerPostionXMin = 120;
+let playerPostionXMin = 120;  // XMin & XMax define range for collision
 let playerPostionXMax = 280;
 
 //activate collision function for all enemies:
@@ -199,6 +203,7 @@ enemy4.collision();
 enemy5.collision();
 enemy6.collision();
 enemy7.collision();
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
